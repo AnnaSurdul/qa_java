@@ -37,12 +37,13 @@ public class LionTest {
     public void init() {
         MockitoAnnotations.initMocks(this);
         feline = new Feline();
-        feline = Mockito.spy(feline);
+        feline = Mockito.mock(Feline.class);
     }
 
     @Test
     public void testGetKittens() throws Exception {
         Lion lion = new Lion(sex, feline);
+        Mockito.when(feline.getKittens()).thenReturn(1);
         assertEquals(1, lion.getKittens());
     }
 
@@ -55,6 +56,7 @@ public class LionTest {
     @Test
     public void testGetFood() throws Exception {
         Lion lion = new Lion(sex, feline);
+        Mockito.when(feline.getFood("Хищник")).thenReturn(List.of("Животные", "Птицы", "Рыба"));
         assertEquals(List.of("Животные", "Птицы", "Рыба"), lion.getFood());
     }
 }
